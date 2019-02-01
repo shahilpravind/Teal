@@ -2,34 +2,44 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <cstdint>
+#include "Constants.h"
+#include "Drawable.h"
+#include "ElementTypes.h"
 
 
-class TextInput
-{
-	private:
-		sf::RectangleShape rect;
-		sf::Text text;
-		sf::Font font;
+class TextInput : public Drawable {
+private:
+	bool inputActive = false;
+	sf::Font font;
+	sf::RectangleShape rect;
+	sf::Text text;
 
-	public:
-		TextInput();
-		TextInput(float, float);
-		~TextInput();
+public:
+	TextInput();
+	~TextInput();
 
-		void show(sf::RenderWindow &);
-		void backspace();
-		void addChar(const sf::String &);
+	void show(sf::RenderWindow &) override;
+	void addChar(sf::String);
+	void backspace();
+	void resetSize();
 
-		void setHint(const std::string &);
-		void setText(const std::string &);
-		void setFontSize(const unsigned int &);
-		void setHintColor(const int &, const int &, const int &, const int &);
-		void setColor(const int &, const int &, const int &, const int &);
+	void setActive();
+	void setInActive();
 
-		std::string getText();
-		float getX();
-		float getY();
-		float getWidth();
-		float getHeight();
-		sf::Text getObj();
+	void setHint(std::string);
+	void setText(std::string);
+	void setFontSize(uint16_t);
+	void setHintColor(uint32_t, uint32_t, uint32_t, uint32_t);
+	void setColor(uint32_t, uint32_t, uint32_t, uint32_t);
+	void setPosition(float, float) override;
+	void setSize(float, float) override;
+
+	std::string getText();
+	bool getState();
+	ElementTypes getElementType() override;
+	float getX() override;
+	float getY() override;
+	float getWidth() override;
+	float getHeight() override;
 };

@@ -1,59 +1,50 @@
 #include <SFML/Graphics.hpp>
+#include "Application.h"
 #include "Button.h"
+#include "Checkbox.h"
 #include "Constants.h"
+#include "EventTypes.h"
+#include "GridLayout.h"
+#include "HorizontalLayout.h"
 #include "Label.h"
 #include "TextInput.h"
+#include "VerticalLayout.h"
+
+
+void buttonClick() {
+	std::cout << "Hello from the button" << std::endl;
+}
 
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE);
-	sf::Event event;
+	Application* app = new Application();
 
-	Button button = Button(200, 100);
-	Label label = Label(300, 300);
+	Button button = Button();
+	button.setPosition(200, 30);
+	app->bind(button, EventTypes::ON_CLICK, buttonClick);
 
-	TextInput textInput = TextInput(400, 400);
-	bool textInputActive = false;
-	
-	while (window.isOpen()) {
-		
-		while (window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed)
-				window.close();
+	Label label = Label();
+	label.setPosition(300, 300);
 
-			if (event.type == sf::Event::MouseButtonPressed) {
-				if (event.mouseButton.button == sf::Mouse::Left) {
-					if (event.mouseButton.x >= button.getX() && event.mouseButton.x <= button.getX() + button.getWidth() && event.mouseButton.y >= button.getY() && event.mouseButton.y <= button.getY() + button.getHeight()) {
-						// button clicked
-						std::cout << "Button clicked" << std::endl;
-					}
+	TextInput textInput = TextInput();
+	textInput.setPosition(400, 400);
 
-					if (event.mouseButton.x >= textInput.getX() && event.mouseButton.x <= textInput.getX() + textInput.getWidth() && event.mouseButton.y >= textInput.getY() && event.mouseButton.y <= textInput.getY() + textInput.getHeight()) {
-						textInputActive = true;
-						std::cout << textInputActive << std::endl;
-					}
-					else {
-						textInputActive = false;
-						std::cout << textInputActive << std::endl;
-					}
-				}
-			}
+	Checkbox checkbox = Checkbox();
+	checkbox.setChecked(true);
 
-			if (textInputActive && event.type == sf::Event::TextEntered) {
-				if (event.text.unicode == 8) {
-					textInput.backspace();
-				} else {
-					textInput.addChar(event.text.unicode);
-				}
-			}
-		}
+	GridLayout layout = GridLayout();
+	layout.add(button);
+	layout.add(label);
+	layout.add(textInput);
+	layout.add(checkbox);
+	layout.freeze();
 
-		window.clear();
-		label.show(window);
-		button.show(window);
-		textInput.show(window);
-		window.display();
-	}
+	app->add(layout);
+	app->run();
+
+
+	// ----- Cleanup -----
+	delete app;
 
 	return 0;
 }

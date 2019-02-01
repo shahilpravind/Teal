@@ -2,45 +2,19 @@
 
 
 Label::Label() {
+	font = sf::Font();
 	if (!font.loadFromFile("arial.ttf")) {
 		std::cout << "Error: Unable to open font when creating label." << std::endl;
 		system("Pause");
 		exit(1);
 	}
 
-	text = sf::Text("Label", font, 22);
+	text = sf::Text("Label", font, DEFAULT_FONT_SIZE);
 }
 
-Label::Label(const std::string & t) {
-	if (!font.loadFromFile("arial.ttf")) {
-		std::cout << "Error: Unable to open font when creating label." << std::endl;
-		system("Pause");
-		exit(1);
-	}
-
-	text = sf::Text(t, font, 22);
-}
-
-Label::Label(const float & x, const float & y) {
-	if (!font.loadFromFile("arial.ttf")) {
-		std::cout << "Error: Unable to open font when creating label." << std::endl;
-		system("Pause");
-		exit(1);
-	}
-
-	text = sf::Text("Label", font, 22);
-	text.setPosition(x, y);
-}
-
-Label::Label(const std::string & t, const float & x, const float & y) {
-	if (!font.loadFromFile("arial.ttf")) {
-		std::cout << "Error: Unable to open font when creating label." << std::endl;
-		system("Pause");
-		exit(1);
-	}
-
-	text = sf::Text(t, font, 22);
-	text.setPosition(x, y);
+Label::Label(std::string val) {
+	Label();
+	text.setString(val);
 }
 
 Label::~Label() {
@@ -52,35 +26,41 @@ void Label::show(sf::RenderWindow & window) {
 	window.draw(text);
 }
 
+void Label::resetSize() {
+	width = 0;
+	height = 0;
+}
 
-void Label::setText(const std::string & t) {
-	text.setString(t);
+
+void Label::setText(std::string val) {
+	text.setString(val);
 
 }
 
-void Label::setFontSize(const unsigned int & s) {
-	text.setCharacterSize(s);
+void Label::setFontSize(uint16_t size) {
+	text.setCharacterSize(size);
 }
 
-void Label::setColor(const unsigned int & r, const unsigned int & g, const unsigned int & b, const unsigned int & a = 255) {
+void Label::setColor(uint32_t r, uint32_t g, uint32_t b, uint32_t a) {
 	text.setFillColor(sf::Color(r, g, b, a));
 }
 
-void Label::setX(const float & x) {
-	text.setPosition(x, text.getPosition().y);
-}
-
-void Label::setY(const float & y) {
-	text.setPosition(text.getPosition().x, y);
-}
-
-void Label::setPosition(const float & x, const float & y) {
+void Label::setPosition(float x, float y) {
 	text.setPosition(x, y);
+}
+
+void Label::setSize(float w, float h) {
+	width = w;
+	height = h;
 }
 
 
 std::string Label::getString() {
 	return text.getString();
+}
+
+ElementTypes Label::getElementType() {
+	return ElementTypes::LABEL;
 }
 
 float Label::getX() {
@@ -89,4 +69,12 @@ float Label::getX() {
 
 float Label::getY() {
 	return text.getPosition().y;
+}
+
+float Label::getWidth() {
+	return text.getGlobalBounds().width;
+}
+
+float Label::getHeight() {
+	return text.getGlobalBounds().height;
 }

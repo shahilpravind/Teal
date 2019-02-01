@@ -2,31 +2,37 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <cstdint>
+#include "Constants.h"
+#include "Drawable.h"
 
 
-class Label
-{
-	private:
-		sf::Text text;
-		sf::Font font;
+class Label : public Drawable {
+private:
+	float width = 0;
+	float height = 0;
 
-	public:
-		Label();
-		Label(const std::string &);
-		Label(const float &, const float &);
-		Label(const std::string &, const float &, const float &);
-		~Label();
+	sf::Text text;
+	sf::Font font;
 
-		void show(sf::RenderWindow &);
+public:
+	Label();
+	Label(std::string);
+	~Label();
 
-		void setText(const std::string &);
-		void setFontSize(const unsigned int &);
-		void setColor(const unsigned int &, const unsigned int &, const unsigned int &, const unsigned int &);
-		void setX(const float &);
-		void setY(const float &);
-		void setPosition(const float &, const float &);
+	void show(sf::RenderWindow &) override;
+	void resetSize();
 
-		std::string getString();
-		float getX();
-		float getY();
+	void setText(std::string);
+	void setFontSize(uint16_t);
+	void setColor(uint32_t, uint32_t, uint32_t, uint32_t);
+	void setPosition(float, float) override;
+	void setSize(float, float) override;
+
+	std::string getString();
+	ElementTypes getElementType() override;
+	float getX() override;
+	float getY() override;
+	float getWidth() override;
+	float getHeight() override;
 };
