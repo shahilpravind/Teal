@@ -4,9 +4,9 @@ Playground for hobby project : C++ SFML based GUI library.
 
 ### Snippet
 
-Inline-style: 
-![alt text](Teal/Github/Capture.PNG "Demo Screenshot")
+![Demo Screenshot][logo]
 
+[logo]: https://github.com/shahilpravind/Teal/raw/master/Github/Capture.PNG "Demo Screenshot"
 
 ### Basic Demo (found in main.cpp)
 
