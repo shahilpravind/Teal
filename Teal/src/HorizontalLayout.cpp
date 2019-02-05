@@ -1,7 +1,8 @@
 #include "HorizontalLayout.h"
 
 
-HorizontalLayout::HorizontalLayout() {
+HorizontalLayout::HorizontalLayout(Application* app) {
+	this->app = app;
 	drawables = new std::vector<Drawable*>();
 
 	this->x = 0;
@@ -14,6 +15,15 @@ HorizontalLayout::~HorizontalLayout() {
 	delete drawables;
 }
 
+
+void HorizontalLayout::add(Drawable &d) {
+	Layout::add(d);
+
+	if (app != nullptr && d.getElementType() == ElementTypes::TEXT_INPUT) {
+		app->getEventHandler()->registerEvent(EventTypes::OnClick, &d);
+		app->getEventHandler()->registerEvent(EventTypes::TextEntered, &d);
+	}
+}
 
 void HorizontalLayout::freeze() {
 	float w = this->width / drawables->size();

@@ -4,7 +4,7 @@
 Application::Application() {
 	drawables = new std::vector<Drawable*>;
 	layouts = new std::vector<Layout*>;
-	events = new Events();
+	eventHandler = new EventHandler();
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE);
 }
 
@@ -22,7 +22,7 @@ Application::Application(uint32_t width, uint32_t height, std::string title) {
 Application::~Application() {
 	delete drawables;
 	delete layouts;
-	delete events;
+	delete eventHandler;
 }
 
 
@@ -39,7 +39,7 @@ void Application::draw() {
 
 void Application::run() {
 	while (window.isOpen()) {
-		events->update(window);
+		eventHandler->update(window);
 
 		window.clear();
 		this->draw();
@@ -52,7 +52,8 @@ void Application::add(Drawable &drawable) {
 	drawables->push_back(temp);
 
 	if (drawable.getElementType() == ElementTypes::TEXT_INPUT) {
-		events->addTextInput(dynamic_cast<TextInput&>(drawable));
+		eventHandler->registerEvent(EventTypes::OnClick, &drawable);
+		eventHandler->registerEvent(EventTypes::TextEntered, &drawable);
 	}
 }
 
@@ -61,8 +62,10 @@ void Application::add(Layout &layout) {
 }
 
 void Application::bind(Drawable &d, EventTypes et, void(*fp)()) {
-	if (et == EventTypes::ON_CLICK)
-		events->addOnClick(d, fp);
+	if (et == EventTypes::OnClick) {
+		d.bind(fp);
+		eventHandler->registerEvent(et, &d);
+	}
 }
 
 
@@ -78,6 +81,10 @@ void Application::setSize(uint32_t w, uint32_t h) {
 	window.setSize(sf::Vector2u(w, h));
 }
 
+
+EventHandler* Application::getEventHandler() {
+	return eventHandler;
+}
 
 uint32_t Application::getX() {
 	return window.getPosition().x;

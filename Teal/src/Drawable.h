@@ -3,10 +3,15 @@
 #include <SFML/Graphics.hpp>
 #include "ElementTypes.h"
 
+
 class Drawable {
 public:
 	Drawable();
 	~Drawable();
+
+	virtual void onClick(int, int) {  }
+	virtual void onTextEntered(sf::Uint32) {  }
+	virtual void bind(void(*)()) {  }
 
 	virtual void show(sf::RenderWindow &) = 0;
 

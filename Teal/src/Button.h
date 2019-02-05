@@ -14,12 +14,17 @@ private:
 	sf::RectangleShape rect;
 	sf::Text text;
 
+	void(*onClickMethod)() = nullptr;
+
 public:
 	Button();
 	Button(std::string);
 	~Button();
 
 	void show(sf::RenderWindow &) override;
+
+	void onClick(int, int) override;
+	void bind(void(*)()) override;
 
 	void setText(std::string);
 	void setFontSize(uint16_t);

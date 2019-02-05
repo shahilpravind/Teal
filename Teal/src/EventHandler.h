@@ -9,19 +9,16 @@
 #include "TextInput.h"
 
 
-class Events {
+class EventHandler {
 private:
-	std::map<Drawable*, void(*)()>* onClicks;
-	std::vector<TextInput*>* textInputs;
-
+	std::map < EventTypes, std::vector<Drawable*> >* events;
 	sf::Event event;
 
 public:
-	Events();
-	~Events();
+	EventHandler();
+	~EventHandler();
 
 	void update(sf::RenderWindow &);
-	void addOnClick(Drawable &, void(*)());
-	void addTextInput(TextInput &);
+	void registerEvent(EventTypes, Drawable*);
 };
 

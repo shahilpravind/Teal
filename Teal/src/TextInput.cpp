@@ -24,6 +24,25 @@ TextInput::~TextInput() {
 }
 
 
+void TextInput::onClick(int mx, int my) {
+	if (mx >= this->getX() && mx <= this->getX() + this->getWidth() && my >= this->getY() && my <= this->getY() + this->getHeight()) {
+		inputActive = true;
+	} else if (inputActive) {
+		inputActive = false;
+	}
+}
+
+void TextInput::onTextEntered(sf::Uint32 code) {
+	if (inputActive) {
+		if (code == 8) {
+			this->backspace();
+		} else {
+			this->addChar(code);
+		}
+	}
+}
+
+
 void TextInput::show(sf::RenderWindow & window) {
 	window.draw(rect);
 	window.draw(text);
@@ -37,10 +56,12 @@ void TextInput::addChar(sf::String val) {
 }
 
 void TextInput::backspace() {
-	sf::String str = sf::String();
-	str += text.getString();
-	str.erase(str.getSize() - 1, 1);
-	text.setString(str);
+	if (text.getString().getSize() > 0) {
+		sf::String str = sf::String();
+		str += text.getString();
+		str.erase(str.getSize() - 1, 1);
+		text.setString(str);
+	}
 }
 
 void TextInput::resetSize() {

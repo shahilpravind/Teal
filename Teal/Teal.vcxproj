@@ -146,12 +146,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\DropDown.cpp" />
     <ClCompile Include="src\Checkbox.cpp" />
     <ClCompile Include="src\GridLayout.cpp" />
     <ClCompile Include="src\HorizontalLayout.cpp" />
     <ClCompile Include="src\Layout.cpp" />
-    <ClCompile Include="src\Events.cpp" />
+    <ClCompile Include="src\EventHandler.cpp" />
     <ClCompile Include="src\Drawable.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Button.cpp" />
@@ -161,13 +160,12 @@
     <ClCompile Include="src\VerticalLayout.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\DropDown.h" />
     <ClInclude Include="src\Checkbox.h" />
     <ClInclude Include="src\GridLayout.h" />
     <ClInclude Include="src\HorizontalLayout.h" />
     <ClInclude Include="src\Layout.h" />
     <ClInclude Include="src\ElementTypes.h" />
-    <ClInclude Include="src\Events.h" />
+    <ClInclude Include="src\EventHandler.h" />
     <ClInclude Include="src\Drawable.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Button.h" />

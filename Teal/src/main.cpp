@@ -21,7 +21,7 @@ int main() {
 
 	Button button = Button();
 	button.setPosition(200, 30);
-	app->bind(button, EventTypes::ON_CLICK, buttonClick);
+	app->bind(button, EventTypes::OnClick, buttonClick);
 
 	Label label = Label();
 	label.setPosition(300, 300);
@@ -30,9 +30,9 @@ int main() {
 	textInput.setPosition(400, 400);
 
 	Checkbox checkbox = Checkbox();
-	checkbox.setChecked(true);
+	checkbox.setChecked(false);
 
-	GridLayout layout = GridLayout();
+	GridLayout layout = GridLayout(app);
 	layout.add(button);
 	layout.add(label);
 	layout.add(textInput);

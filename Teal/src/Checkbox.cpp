@@ -28,6 +28,13 @@ Checkbox::~Checkbox() {
 }
 
 
+void Checkbox::onClick(int mx, int my) {
+	if (mx >= rect.getPosition().x && mx <= rect.getPosition().x + rect.getSize().x && my >= rect.getPosition().y && my <= rect.getPosition().y + rect.getSize().y) {
+		this->setChecked( !(this->isChecked()) );
+	}
+}
+
+
 void Checkbox::show(sf::RenderWindow &window) {
 	window.draw(rect);
 	window.draw(text);
@@ -42,7 +49,7 @@ void Checkbox::setChecked(bool state) {
 }
 
 bool Checkbox::isChecked() {
-	return (rect.getFillColor().a == 0 ? true : false);
+	return (rect.getFillColor().a == 0 ? false : true);
 }
 
 

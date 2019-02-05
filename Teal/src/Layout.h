@@ -14,8 +14,8 @@ public:
 	~Layout();
 
 	virtual void freeze() = 0;
-
-	void add(Drawable &);
+	
+	virtual void add(Drawable &);
 	void draw(sf::RenderWindow &);
 
 	void setPosition(float, float);

@@ -1,7 +1,8 @@
 #include "GridLayout.h"
 
 
-GridLayout::GridLayout() {
+GridLayout::GridLayout(Application* app) {
+	this->app = app;
 	drawables = new std::vector<Drawable*>();
 
 	this->x = 0;
@@ -14,6 +15,18 @@ GridLayout::~GridLayout() {
 	delete drawables;
 }
 
+
+void GridLayout::add(Drawable &d) {
+	Layout::add(d);
+
+	if (d.getElementType() == ElementTypes::TEXT_INPUT) {
+		app->getEventHandler()->registerEvent(EventTypes::OnClick, &d);
+		app->getEventHandler()->registerEvent(EventTypes::TextEntered, &d);
+	} else if (d.getElementType() == ElementTypes::CHECKBOX) {
+		app->getEventHandler()->registerEvent(EventTypes::OnClick, &d);
+		std::cout << "Checkbox Added" << std::endl;
+	}
+}
 
 void GridLayout::freeze() {
 	float w = this->width / cols;

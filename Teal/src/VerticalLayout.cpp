@@ -1,7 +1,8 @@
 #include "VerticalLayout.h"
 
 
-VerticalLayout::VerticalLayout() {
+VerticalLayout::VerticalLayout(Application* app) {
+	this->app = app;
 	drawables = new std::vector<Drawable*>();
 
 	this->x = 0;
@@ -14,6 +15,15 @@ VerticalLayout::~VerticalLayout() {
 	delete drawables;
 }
 
+
+void VerticalLayout::add(Drawable &d) {
+	Layout::add(d);
+
+	if (app != nullptr && d.getElementType() == ElementTypes::TEXT_INPUT) {
+		app->getEventHandler()->registerEvent(EventTypes::OnClick, &d);
+		app->getEventHandler()->registerEvent(EventTypes::TextEntered, &d);
+	}
+}
 
 void VerticalLayout::freeze() {
 	float h = this->height / drawables->size();

@@ -6,7 +6,7 @@
 #include "Constants.h"
 #include "Drawable.h"
 #include "ElementTypes.h"
-#include "Events.h"
+#include "EventHandler.h"
 #include "EventTypes.h"
 #include "Layout.h"
 #include "TextInput.h"
@@ -16,7 +16,7 @@ class Application {
 private:
 	std::vector<Drawable*>* drawables;
 	std::vector<Layout*>* layouts;
-	Events* events;
+	EventHandler* eventHandler;
 	sf::RenderWindow window;
 
 	void draw();
@@ -36,6 +36,7 @@ public:
 	void setPosition(uint32_t, uint32_t);
 	void setSize(uint32_t, uint32_t);
 
+	EventHandler* getEventHandler();
 	uint32_t getX();
 	uint32_t getY();
 	uint32_t getWidth();

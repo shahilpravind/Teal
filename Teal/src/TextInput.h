@@ -19,6 +19,9 @@ public:
 	TextInput();
 	~TextInput();
 
+	void onClick(int, int) override;
+	void onTextEntered(sf::Uint32) override;
+
 	void show(sf::RenderWindow &) override;
 	void addChar(sf::String);
 	void backspace();

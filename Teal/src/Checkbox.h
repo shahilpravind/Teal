@@ -22,6 +22,8 @@ public:
 	Checkbox(std::string);
 	~Checkbox();
 
+	void onClick(int, int) override;
+
 	void show(sf::RenderWindow &);
 	void setChecked(bool);
 	bool isChecked();

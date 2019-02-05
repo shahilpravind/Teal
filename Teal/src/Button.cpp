@@ -34,6 +34,19 @@ void Button::show(sf::RenderWindow & window) {
 }
 
 
+void Button::onClick(int mx, int my) {
+	if (mx >= this->getX() && mx <= this->getX() + this->getWidth() && my >= this->getY() && my <= this->getY() + this->getHeight()) {
+		if (onClickMethod != nullptr) {
+			onClickMethod();
+		}
+	}
+}
+
+void Button::bind(void(*fp)()) {
+	this->onClickMethod = fp;
+}
+
+
 void Button::setText(std::string val) {
 	text.setString(val);
 }
